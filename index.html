@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detector Avançado de Conteúdo Humano vs IA</title>
+    <!-- Carregar bibliotecas externas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <!-- Link para seu arquivo CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Detector Avançado de Conteúdo Humano vs IA</h1>
+            <p>Algoritmo otimizado com análise contextual e proteção para escrita acadêmica</p>
+        </header>
+
+        <div class="main-content">
+            <!-- SEÇÃO DE UPLOAD -->
+            <div class="upload-section">
+                <h2>Enviar Conteúdo para Análise</h2>
+                <div class="upload-area" id="uploadArea">
+                    <i>📄</i>
+                    <h3>Arraste e solte arquivos aqui</h3>
+                    <p>ou clique para selecionar</p>
+                    <p>Formatos suportados: PDF, DOCX, DOC, TXT</p>
+                    <input type="file" id="fileInput" class="file-input" accept=".pdf,.docx,.doc,.txt">
+                </div>
+
+                <div>
+                    <h3>Ou cole o texto abaixo:</h3>
+                    <textarea id="textInput" placeholder="Cole seu texto aqui para análise..." rows="10"></textarea>
+                </div>
+
+                <div>
+                    <h3>Tipo de Conteúdo: <span class="context-indicator" id="contextIndicator">Ajusta análise por contexto</span></h3>
+                    <select id="contentType">
+                        <option value="academic">Acadêmico (mais tolerante com estruturas formais)</option>
+                        <option value="technical">Técnico</option>
+                        <option value="creative">Criativo (menos tolerante com clichês)</option>
+                        <option value="business">Negócios</option>
+                        <option value="casual">Casual</option>
+                    </select>
+                </div>
+
+                <button class="btn" id="analyzeBtn">Analisar Conteúdo</button>
+                <button class="btn btn-secondary" id="clearBtn">Limpar</button>
+            </div>
+
+            <!-- SEÇÃO DE RESULTADOS -->
+            <div class="results-section">
+                <h2>Resultados da Análise</h2>
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <p>Analisando conteúdo com algoritmo avançado...</p>
+                </div>
+
+                <div class="results-container" id="resultsContainer">
+                    <div class="probability-display">
+                        <h3>Probabilidade de Autoria</h3>
+                        <div class="probability-bar">
+                            <div class="probability-fill human-fill" id="humanProbabilityBar" style="width: 50%;"></div>
+                        </div>
+                        <div class="probability-labels">
+                            <span>Humano</span>
+                            <span>IA</span>
+                        </div>
+                        <div id="probabilityText">
+                            Carregando...
+                        </div>
+                        <div class="perplexity-display" id="perplexityDisplay" style="display: none;"></div>
+                    </div>
+
+                    <div class="advanced-metrics">
+                        <h3>Métricas Avançadas com Análise Contextual</h3>
+                        <div class="metric-grid" id="advancedMetrics"></div>
+                    </div>
+
+                    <div class="analysis-details">
+                        <h3>Detalhes da Análise</h3>
+                        <div id="analysisDetails"></div>
+                    </div>
+
+                    <div class="text-preview" id="textPreview"></div>
+
+                    <div class="suggestions" id="suggestions"></div>
+
+                    <button class="btn" id="downloadPdfBtn">Baixar Relatório PDF Completo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Link para seu arquivo JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>

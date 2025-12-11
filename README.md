@@ -1,0 +1,1 @@
+# verificador-IA-detalhado-html-v11

@@ -4,97 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detector Avançado de Conteúdo Humano vs IA</title>
-    <!-- Carregar bibliotecas externas -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
-    <!-- Link para seu arquivo CSS -->
+    
+    <!-- CSS PRINCIPAL -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- BIBLIOTECAS EXTERNAS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.min.js"></script>
+    <script src="https://unpkg.com/mammoth@1.6.0/mammoth.browser.min.js"></script>
+    
+    <!-- ÍCONES -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Detector Avançado de Conteúdo Humano vs IA</h1>
+            <h1><i class="fas fa-brain"></i> Detector Avançado de Conteúdo Humano vs IA</h1>
             <p>Algoritmo otimizado com análise contextual e proteção para escrita acadêmica</p>
         </header>
 
         <div class="main-content">
             <!-- SEÇÃO DE UPLOAD -->
             <div class="upload-section">
-                <h2>Enviar Conteúdo para Análise</h2>
+                <h2><i class="fas fa-upload"></i> Enviar Conteúdo para Análise</h2>
+                
                 <div class="upload-area" id="uploadArea">
-                    <i>📄</i>
+                    <i class="fas fa-file-upload fa-3x"></i>
                     <h3>Arraste e solte arquivos aqui</h3>
                     <p>ou clique para selecionar</p>
-                    <p>Formatos suportados: PDF, DOCX, DOC, TXT</p>
+                    <p class="file-types">Formatos suportados: PDF, DOCX, DOC, TXT</p>
                     <input type="file" id="fileInput" class="file-input" accept=".pdf,.docx,.doc,.txt">
                 </div>
 
-                <div>
-                    <h3>Ou cole o texto abaixo:</h3>
-                    <textarea id="textInput" placeholder="Cole seu texto aqui para análise..." rows="10"></textarea>
+                <div class="text-input-section">
+                    <h3><i class="fas fa-paste"></i> Ou cole o texto abaixo:</h3>
+                    <textarea id="textInput" placeholder="Cole seu texto aqui para análise...&#10;Mínimo recomendado: 200 caracteres" rows="8"></textarea>
                 </div>
 
-                <div>
-                    <h3>Tipo de Conteúdo: <span class="context-indicator" id="contextIndicator">Ajusta análise por contexto</span></h3>
+                <div class="content-type-section">
+                    <h3><i class="fas fa-filter"></i> Tipo de Conteúdo:</h3>
+                    <div class="context-indicator" id="contextIndicator">
+                        <i class="fas fa-info-circle"></i> Modo Acadêmico ativo
+                    </div>
                     <select id="contentType">
-                        <option value="academic">Acadêmico (mais tolerante com estruturas formais)</option>
-                        <option value="technical">Técnico</option>
-                        <option value="creative">Criativo (menos tolerante com clichês)</option>
-                        <option value="business">Negócios</option>
-                        <option value="casual">Casual</option>
+                        <option value="academic">🎓 Acadêmico (mais tolerante com estruturas formais)</option>
+                        <option value="technical">🔧 Técnico</option>
+                        <option value="creative">🎨 Criativo (menos tolerante com clichês)</option>
+                        <option value="business">💼 Negócios</option>
+                        <option value="casual">😊 Casual</option>
                     </select>
                 </div>
 
-                <button class="btn" id="analyzeBtn">Analisar Conteúdo</button>
-                <button class="btn btn-secondary" id="clearBtn">Limpar</button>
+                <div class="button-group">
+                    <button class="btn btn-analyze" id="analyzeBtn">
+                        <i class="fas fa-search"></i> Analisar Conteúdo
+                    </button>
+                    <button class="btn btn-clear" id="clearBtn">
+                        <i class="fas fa-broom"></i> Limpar Tudo
+                    </button>
+                </div>
             </div>
 
             <!-- SEÇÃO DE RESULTADOS -->
             <div class="results-section">
-                <h2>Resultados da Análise</h2>
+                <h2><i class="fas fa-chart-bar"></i> Resultados da Análise</h2>
+                
                 <div class="loading" id="loading">
                     <div class="spinner"></div>
                     <p>Analisando conteúdo com algoritmo avançado...</p>
+                    <p class="loading-sub">Isso pode levar alguns segundos</p>
                 </div>
 
                 <div class="results-container" id="resultsContainer">
+                    <!-- PROBABILIDADE -->
                     <div class="probability-display">
-                        <h3>Probabilidade de Autoria</h3>
+                        <h3><i class="fas fa-chart-pie"></i> Probabilidade de Autoria</h3>
                         <div class="probability-bar">
                             <div class="probability-fill human-fill" id="humanProbabilityBar" style="width: 50%;"></div>
                         </div>
                         <div class="probability-labels">
-                            <span>Humano</span>
-                            <span>IA</span>
+                            <span class="human-label"><i class="fas fa-user"></i> Humano</span>
+                            <span class="ai-label"><i class="fas fa-robot"></i> IA</span>
                         </div>
-                        <div id="probabilityText">
-                            Carregando...
+                        <div class="probability-text" id="probabilityText">
+                            <div class="verdict" id="verdictText">Carregando análise...</div>
+                            <div class="confidence" id="confidenceText">Confiança: 0%</div>
+                            <div class="percentages" id="percentagesText">
+                                <span class="human-percent">Humano: 0%</span> | 
+                                <span class="ai-percent">IA: 0%</span>
+                            </div>
                         </div>
-                        <div class="perplexity-display" id="perplexityDisplay" style="display: none;"></div>
                     </div>
 
+                    <!-- PERPLEXIDADE -->
+                    <div class="perplexity-display" id="perplexityDisplay">
+                        <h4><i class="fas fa-chart-line"></i> Análise de Variação Lexical</h4>
+                        <div class="perplexity-metric">
+                            <span class="metric-value" id="perplexityValue">0%</span>
+                            <span class="metric-label" id="perplexityLabel">Carregando...</span>
+                        </div>
+                    </div>
+
+                    <!-- MÉTRICAS AVANÇADAS -->
                     <div class="advanced-metrics">
-                        <h3>Métricas Avançadas com Análise Contextual</h3>
-                        <div class="metric-grid" id="advancedMetrics"></div>
+                        <h3><i class="fas fa-tachometer-alt"></i> Métricas Avançadas</h3>
+                        <div class="metric-grid" id="advancedMetrics">
+                            <!-- Gerado por JavaScript -->
+                        </div>
                     </div>
 
+                    <!-- DETALHES DA ANÁLISE -->
                     <div class="analysis-details">
-                        <h3>Detalhes da Análise</h3>
-                        <div id="analysisDetails"></div>
+                        <h3><i class="fas fa-clipboard-list"></i> Detalhes da Análise</h3>
+                        <div class="details-grid" id="analysisDetails">
+                            <!-- Gerado por JavaScript -->
+                        </div>
                     </div>
 
-                    <div class="text-preview" id="textPreview"></div>
+                    <!-- PRÉVIA DO TEXTO -->
+                    <div class="text-preview-container">
+                        <h3><i class="fas fa-file-alt"></i> Prévia do Texto Analisado</h3>
+                        <div class="text-preview" id="textPreview">
+                            <p class="placeholder">Nenhum texto para exibir. Faça uma análise primeiro.</p>
+                        </div>
+                    </div>
 
-                    <div class="suggestions" id="suggestions"></div>
+                    <!-- SUGESTÕES -->
+                    <div class="suggestions" id="suggestions">
+                        <h4><i class="fas fa-lightbulb"></i> Recomendações</h4>
+                        <ul id="suggestionsList">
+                            <li>Selecione ou cole um texto para análise</li>
+                        </ul>
+                    </div>
 
-                    <button class="btn" id="downloadPdfBtn">Baixar Relatório PDF Completo</button>
+                    <!-- BOTÃO PDF -->
+                    <button class="btn btn-pdf" id="downloadPdfBtn">
+                        <i class="fas fa-file-pdf"></i> Baixar Relatório Completo (PDF)
+                    </button>
                 </div>
             </div>
         </div>
+
+        <footer>
+            <p>Detector Avançado de IA &copy; 2024 | Algoritmo otimizado para detecção precisa</p>
+        </footer>
     </div>
 
-    <!-- Link para seu arquivo JavaScript -->
+    <!-- JAVASCRIPT PRINCIPAL -->
     <script src="script.js"></script>
 </body>
 </html>
